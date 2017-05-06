@@ -53,7 +53,9 @@ public class DelayQueue {
             throw new IllegalArgumentException("task");
         }
         int triggerAfterSecond = task.getTriggerAfterSecond();
-        int taskIndex = currentSlotNums + triggerAfterSecond - maxSlotNums;
+        int taskIndex = currentSlotNums + triggerAfterSecond;
+        if(taskIndex > maxSlotNums - 1)
+            taskIndex = taskIndex % maxSlotNums;
         HashSet<Task> taskSets = (HashSet<Task>)this.taskQueue[taskIndex];
         int cycleNum = triggerAfterSecond / maxSlotNums;
         task.setCycleNum(cycleNum);
